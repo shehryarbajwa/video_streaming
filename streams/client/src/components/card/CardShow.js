@@ -62,7 +62,6 @@ export default function SimpleCard() {
                 {'"a benevolent smile"'}
               </Typography>
             </CardContent>
-            
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
@@ -91,7 +90,6 @@ export default function SimpleCard() {
                 {'"a benevolent smile"'}
               </Typography>
             </CardContent>
-            
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
@@ -124,7 +122,6 @@ export default function SimpleCard() {
                 {'"a benevolent smile"'}
               </Typography>
             </CardContent>
-            
           </Card>
         </Grid>
       </Grid>

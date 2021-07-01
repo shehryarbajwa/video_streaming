@@ -11,14 +11,16 @@ class StreamCreate extends React.Component {
     );
   }
 
-  renderProduct({ input, label }) {
+  renderProduct({ input, label, categories }) {
     return (
-        <div className="grouped fields">
-            <h4 class="ui dividing header">Select Product</h4>
-            <div className="ui radio checkbox">
-          <label>{label}</label>
-          <input type="radio" checked="" tabindex="0" className="hidden" {...input} />
-        </div>
+      <div>
+        <h4>{label}</h4>
+        <select>
+          {categories.map((category, index) => (
+            <option value={index}>{category}</option>
+          ))}
+          <input {...input} />
+        </select>
       </div>
     );
   }
@@ -28,6 +30,9 @@ class StreamCreate extends React.Component {
   }
 
   render() {
+    const product_categories = ["Eggs", "Kinoo", "Maize"];
+    const provinces = ["Punjab", "Sindh", "KPK", "Balochistan"];
+
     return (
       <form className="ui form">
         <h4 class="ui dividing header">Eager to work with us?</h4>
@@ -37,26 +42,24 @@ class StreamCreate extends React.Component {
           component={this.renderInput}
           label="Contact Number"
         />
-        <div className="two fields">
-        <Field
-          name="products"
-          component={this.renderInput}
-          label="Products"
-        />
-          <Field name="address" component={this.renderInput} label="Address" />
-        </div>
-
-        <div className="two fields">
-          <Field name="town" component={this.renderInput} label="Town" />
+        <Field name="address" component={this.renderInput} label="Address" />
           <Field
-            name="district"
-            component={this.renderInput}
-            label="District"
+            name="products"
+            component={this.renderProduct}
+            label="Product"
+            categories={product_categories}
           />
-        </div>
+        <Field
+          name="town"
+          component={this.renderProduct}
+          label="Province"
+          categories={provinces}
+        />
+
+        <Field name="district" component={this.renderInput} label="District" />
         <div className="two fields">
-        <Field name="zipcode" component={this.renderInput} label="Zipcode" />
-        <Field name="country" component={this.renderInput} label="Country" />
+          <Field name="zipcode" component={this.renderInput} label="Zipcode" />
+          <Field name="country" component={this.renderInput} label="Country" />
         </div>
         <button class="fluid ui button">Send a message</button>
       </form>
