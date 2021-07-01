@@ -6,8 +6,7 @@ import StreamDelete from './streams/StreamDelete'
 import StreamShow from './streams/StreamShow'
 import StreamList from './streams/StreamList'
 import Header from './Header'
-
-
+import SimpleCard from './card/CardShow'
 
 const App = () => {
   return <div className="ui container">
@@ -20,6 +19,7 @@ const App = () => {
           <Route path="/streams/edit" component={StreamEdit} />
           <Route path="/streams/delete" component={StreamDelete} />
           <Route path="/streams/show" component={StreamShow} />
+          <Route path="/streams/card" component={SimpleCard} />
       </div>
       </BrowserRouter>
   </div>;
