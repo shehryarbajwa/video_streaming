@@ -2,21 +2,36 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 
 class StreamCreate extends React.Component {
-  renderInput({ input, label }) {
+
+  renderError = ({ error, touched }) => {
+    if (touched && error) {
+      return (
+        <div className="ui error message">
+          <div className="header">{error}</div>
+        </div>
+      );
+    }
+  }
+
+
+  renderInput = ({ input, label, meta }) => {
+    const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
     return (
-      <div className="field">
+      <div className={className}>
         <label>{label}</label>
-        <input {...input} />
+        <input {...input} autoComplete="off" />
+        {this.renderError(meta)}
       </div>
     );
   }
 
-  renderCategory({ input, label, categories }) {
+  renderCategory = ({ input, label, categories, meta }) => {
+    const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
     return (
-      <div className="field">
+      <div className={className}>
         <label>{label}</label>
-        <select {...input}>
-        <option value="">Select</option>
+        <select {...input} autoComplete="off">
+          <option value="">Select</option>
           {categories.map((category, index) => (
             <option key={index}>{category}</option>
           ))}
@@ -26,7 +41,7 @@ class StreamCreate extends React.Component {
   }
 
   onSubmit(formValues) {
-    console.log(formValues);
+    console.log(formValues)
   }
 
   render() {
@@ -35,7 +50,7 @@ class StreamCreate extends React.Component {
 
     return (
       <form
-        className="ui form"
+        className="ui form error"
         onSubmit={this.props.handleSubmit(this.onSubmit)}
       >
         <h4 className="ui dividing header">Eager to work with us?</h4>
@@ -70,6 +85,37 @@ class StreamCreate extends React.Component {
   }
 }
 
+const validate = formValues => {
+  const errors = {};
+
+  if (!formValues.name) {
+    errors.name = 'You must enter a name';
+  }
+
+  if (!formValues.contact) {
+    errors.contact = 'You must enter a contact';
+  }
+
+  if (!formValues.product) {
+    errors.product = 'You must enter a product';
+  }
+
+  if (!formValues.address) {
+    errors.address = 'You must enter an address';
+  }
+
+  if (!formValues.province) {
+    errors.province = 'You must enter a province';
+  }
+
+  if (!formValues.country) {
+    errors.country = 'You must enter a country';
+  }
+
+  return errors;
+};
+
 export default reduxForm({
-  form: "streamCreate",
+  form: "vendor",
+  validate
 })(StreamCreate);
