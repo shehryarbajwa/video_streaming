@@ -11,22 +11,22 @@ class StreamCreate extends React.Component {
     );
   }
 
-  renderProduct({ input, label, categories }) {
+  renderCategory({ input, label, categories }) {
     return (
-      <div>
-        <h4>{label}</h4>
-        <select>
+      <div className="field">
+        <label>{label}</label>
+        <select {...input}>
+        <option value="">Select</option>
           {categories.map((category, index) => (
-            <option value={index}>{category}</option>
+            <option key={index}>{category}</option>
           ))}
-          <input {...input} />
         </select>
       </div>
     );
   }
 
-  onSubmit(event) {
-    event.preventDefault();
+  onSubmit(formValues) {
+    console.log(formValues);
   }
 
   render() {
@@ -34,8 +34,11 @@ class StreamCreate extends React.Component {
     const provinces = ["Punjab", "Sindh", "KPK", "Balochistan"];
 
     return (
-      <form className="ui form">
-        <h4 class="ui dividing header">Eager to work with us?</h4>
+      <form
+        className="ui form"
+        onSubmit={this.props.handleSubmit(this.onSubmit)}
+      >
+        <h4 className="ui dividing header">Eager to work with us?</h4>
         <Field name="name" component={this.renderInput} label="Name" />
         <Field
           name="contact"
@@ -43,15 +46,15 @@ class StreamCreate extends React.Component {
           label="Contact Number"
         />
         <Field name="address" component={this.renderInput} label="Address" />
-          <Field
-            name="products"
-            component={this.renderProduct}
-            label="Product"
-            categories={product_categories}
-          />
         <Field
-          name="town"
-          component={this.renderProduct}
+          name="product"
+          component={this.renderCategory}
+          label="Product"
+          categories={product_categories}
+        />
+        <Field
+          name="province"
+          component={this.renderCategory}
           label="Province"
           categories={provinces}
         />
@@ -61,7 +64,7 @@ class StreamCreate extends React.Component {
           <Field name="zipcode" component={this.renderInput} label="Zipcode" />
           <Field name="country" component={this.renderInput} label="Country" />
         </div>
-        <button class="fluid ui button">Send a message</button>
+        <button className="fluid ui positive button">Send a message</button>
       </form>
     );
   }
